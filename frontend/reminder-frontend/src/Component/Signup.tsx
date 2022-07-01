@@ -1,11 +1,17 @@
 import {useState} from "react" 
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
+
+
 const Signup = () => {
 
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+
+    const navigate = useNavigate()
+
 
     const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
 
@@ -24,6 +30,7 @@ const Signup = () => {
         .then((result)=>{
             console.log("Added successfully" + result.data["token"])
             localStorage.setItem("token", result.data["token"])
+            navigate("/reminders")
         })
         .catch((err)=>{
             console.log("Facing err "+ err)

@@ -2,6 +2,9 @@ import Home from "./Container/Home"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ReminderView from "./Container/RemindersView";
 import ReminderCreate from "./Container/ReminderCreate";
+import Login from "./Component/Login"
+import Register from "./Component/Signup"
+
 
 const App = ()=> {
   return (
@@ -10,8 +13,10 @@ const App = ()=> {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/reminders/all" element={<ReminderView />} />
+          <Route path="/reminders" element={<ReminderView />} />
           <Route path="/reminders/create" element={<ReminderCreate />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
         </Router>
     </div>
