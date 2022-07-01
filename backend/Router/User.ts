@@ -22,14 +22,22 @@ router.post("/login", async (req,res)=>{
     const userRepo =  AppDataSource.getRepository(UserEntity)
 
 
-    const user = await userRepo.findOne({where:{email:email}})
+    const allUsers = await userRepo.find({where:{email:email}})
+
+    console.log(allUsers)
+    const user = allUsers[0]
+
+    console.log(user)
+
     if(!user){
         return res.status(401).send("Could not find user with this email id")
     }
 
+    console.log(user)
+
     if(await bcrypt.compare(password, user.password as string)){
 
-        const token = getJWTToken(user.id, email)
+        const token = getJWTToken(user.id, email, user.name)
 
         user.token = token
         return res.json(user)
@@ -43,6 +51,7 @@ router.post("/login", async (req,res)=>{
 
 router.post("/register", async (req, res) => {
 
+    console.log("inside register")
 
 
     const {name, email, password} = req.body
@@ -72,7 +81,7 @@ router.post("/register", async (req, res) => {
 
     await userRepo.save(user)
 
-    const token = getJWTToken(user.id, email)
+    const token = getJWTToken(user.id, email, name)
 
 
     user.token = token

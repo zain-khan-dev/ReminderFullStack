@@ -13,34 +13,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const Reminder_entity_1 = __importDefault(require("./Reminder.entity"));
-let UserInfo = class UserInfo {
+const User_entity_1 = __importDefault(require("./User.entity"));
+let Reminder = class Reminder {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], UserInfo.prototype, "id", void 0);
+], Reminder.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "name", void 0);
+], Reminder.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "email", void 0);
+], Reminder.prototype, "message", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "password", void 0);
+], Reminder.prototype, "send_time", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "token", void 0);
+], Reminder.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)((type) => Reminder_entity_1.default, reminder => reminder.user),
-    __metadata("design:type", Array)
-], UserInfo.prototype, "reminders", void 0);
-UserInfo = __decorate([
+    (0, typeorm_1.ManyToOne)(() => User_entity_1.default),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id', referencedColumnName: 'id' }),
+    __metadata("design:type", User_entity_1.default)
+], Reminder.prototype, "user", void 0);
+Reminder = __decorate([
     (0, typeorm_1.Entity)()
-], UserInfo);
-exports.default = UserInfo;
+], Reminder);
+exports.default = Reminder;

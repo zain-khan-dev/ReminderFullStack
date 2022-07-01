@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm"
+import Reminder from "../entity/Reminder.entity"
 import UserEntity from "../entity/User.entity"  
 
 const AppDataSource = new DataSource({
@@ -8,7 +9,7 @@ const AppDataSource = new DataSource({
     username: "postgres",
     password: "zainkhan",
     database: "test",
-    entities: [UserEntity],
+    entities: [UserEntity, Reminder],
     synchronize: true,
     logging: false,
 })

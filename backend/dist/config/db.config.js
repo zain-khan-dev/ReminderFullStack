@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Reminder_entity_1 = __importDefault(require("../entity/Reminder.entity"));
 const User_entity_1 = __importDefault(require("../entity/User.entity"));
 const AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
@@ -12,7 +13,7 @@ const AppDataSource = new typeorm_1.DataSource({
     username: "postgres",
     password: "zainkhan",
     database: "test",
-    entities: [User_entity_1.default],
+    entities: [User_entity_1.default, Reminder_entity_1.default],
     synchronize: true,
     logging: false,
 });

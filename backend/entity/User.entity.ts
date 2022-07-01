@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
-
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm"
+import Reminder from "./Reminder.entity"
 @Entity()
 class UserInfo {
     @PrimaryGeneratedColumn()
@@ -16,6 +16,9 @@ class UserInfo {
 
     @Column({nullable:true})
     token:String
+
+    @OneToMany((type)=>Reminder, reminder=>reminder.user)
+    reminders:Reminder[]
 
 }
 

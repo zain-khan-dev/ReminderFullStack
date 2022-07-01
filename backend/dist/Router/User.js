@@ -26,18 +26,23 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(400).send("All inputs are required");
     }
     const userRepo = db_config_1.default.getRepository(User_entity_1.default);
-    const user = yield userRepo.findOne({ where: { email: email } });
+    const allUsers = yield userRepo.find({ where: { email: email } });
+    console.log(allUsers);
+    const user = allUsers[0];
+    console.log(user);
     if (!user) {
         return res.status(401).send("Could not find user with this email id");
     }
+    console.log(user);
     if (yield bcryptjs_1.default.compare(password, user.password)) {
-        const token = (0, utils_1.getJWTToken)(user.id, email);
+        const token = (0, utils_1.getJWTToken)(user.id, email, user.name);
         user.token = token;
         return res.json(user);
     }
     return res.status(401).send("Incorrect password");
 }));
 router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("inside register");
     const { name, email, password } = req.body;
     if (!(email && password && name)) {
         res.status(400).send("All input is required");
@@ -53,7 +58,7 @@ router.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, functio
     user.email = email;
     user.password = encryptedPassword;
     yield userRepo.save(user);
-    const token = (0, utils_1.getJWTToken)(user.id, email);
+    const token = (0, utils_1.getJWTToken)(user.id, email, name);
     user.token = token;
     return res.json(user);
 }));
